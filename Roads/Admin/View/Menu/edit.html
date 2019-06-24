@@ -1,0 +1,86 @@
+<extend name="Public/base"/>
+
+<block name="right">
+  <div class="main-container">
+        <h3 style="color:#008d4c;">{:isset($info['id'])?'编辑':'新增'}后台菜单</h3>
+    <div class="centent">
+    <form action="{:U()}" method="post" class="form ">
+        <div class="form-group">
+            <label class="item-label">标题<span class="check-tips">（用于后台显示的配置标题）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">排序<span class="check-tips">（用于分组显示的顺序）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-small" name="sort" value="{$info.sort|default=0}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">链接<span class="check-tips">（U函数解析的URL或者外链）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="url" value="{$info.url|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">上级菜单<span class="check-tips">（所属的上级菜单）</span></label>
+            <div class="form-group">
+                <select name="pid">
+                    <volist name="Menus" id="menu">
+                        <option value="{$menu.id}">{$menu.title_show}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">分组<span class="check-tips">（用于左侧分组二级菜单）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="group" value="{$info.group|default=''}">
+            </div>
+        </div>
+          <div class="form-group">
+            <label class="item-label">是否隐藏<span class="check-tips"></span></label>
+            <div class="checkbox">
+                <input name="hide" type="radio"  value="1" <if condition="$info.hide eq 1"> checked </if> />
+                <label>启用</label>&nbsp;&nbsp;&nbsp;
+                <input name="hide" type="radio"  value="0" <if condition="$info.hide eq 0"> checked </if> />
+                <label>禁用</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">仅开发者模式可见<span class="check-tips"></span></label>
+            <div class="checkbox">
+              <input name="is_dev" type="radio"  value="1" <if condition="$info.hide eq 1"> checked </if> />
+              <label>启用</label>&nbsp;&nbsp;&nbsp;
+              <input name="is_dev" type="radio"  value="0" <if condition="$info.hide eq 0"> checked </if> />
+              <label>禁用</label>
+                <!-- <label class="radio"><input type="radio" name="is_dev" value="1">是</label>
+                <label class="radio"><input type="radio" name="is_dev" value="0">否</label> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">说明<span class="check-tips">（菜单详细说明）</span></label>
+            <div class="checkbox">
+                <input type="text" class="text input-large" name="tip" value="{$info.tip|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            <button class="btn btn-success btn-flat" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            &nbsp;
+            <button class="btn btn-warning btn-flat" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+    </div>
+</div>
+    <script type="text/javascript">
+        Think.setValue("pid", {$info.pid|default = 0});
+        Think.setValue("hide", {$info.hide|default = 0});
+        Think.setValue("is_dev", {$info.is_dev|default = 0});
+        //导航高亮
+        highlight_subnav('{:U('index')}');
+    </script>
+
+
+</block>

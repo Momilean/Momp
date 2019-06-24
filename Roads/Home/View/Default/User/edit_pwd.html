@@ -1,0 +1,175 @@
+<extend name="Public/base" />
+<block name="right">
+<script>
+$(function(){
+	$('#button').click(function(){
+		var password = $('#password').val();
+		var new_pwd = $('#new_pwd').val();
+		var new_pwd2 = $('#new_pwd2').val();
+		if(password == ''){
+			layer.tips('请输入原密码', '#password');
+			return false;
+		}
+		if(new_pwd == ''){
+			layer.tips('请输入新密码', '#new_pwd');
+			return false;
+		}
+		if(password == new_pwd){
+			layer.msg('新密码不得为原密码');
+			return false;
+		}
+		if(new_pwd2 == ''){
+			layer.tips('请重复新密码', '#new_pwd2');
+			return false;
+		}
+		if(new_pwd != new_pwd2){
+			layer.msg('请重复输入相同的密码');
+			return false;
+		}
+		$.post(	"{:U('User/edit_pwd')}" ,{"password":$('#password').val(),"new_pwd":$('#new_pwd').val()},
+			function(data){
+				if(data == 1){
+					layer.msg('修改成功，请重新登录...',{icon: 1,time: 3000,shade: [0.8, '#393D49']},function(){
+							parent.window.location.href="{:U('Login/login')}";
+						}
+					);
+				}else if(data == 2){
+					layer.msg('系统出现异常！',{icon: 1, time: 2000});
+				}else{
+					layer.msg('原始密码错误！',{icon:3,time: 2000});
+                    
+				}
+			}, "json");	
+	});
+});
+</script>
+<div class="row">
+    <div class=" col-md-4">
+        <div class="form-body">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td  ><div align="right">原始密码：</div></td>
+                    <td  ><input type="text" name="password" id="password" placeholder="原始密码"   value="" /></td>
+                </tr>
+                <tr>
+                    <td><div align="right">新的密码：</div></td>
+                    <td><input type="password" name="new_pwd" id="new_pwd" placeholder="新密码"   value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><div align="right">确认密码：</div></td>
+                    <td><input type="password" name="new_pwd2" id="new_pwd2" placeholder="重复新密码"   value="" /></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+       
+                <div class="form-body">
+                    <button id="button" class="btn bg-maroon btn-flat"><i class="fa fa-save"></i> 保存</button>
+                </div>
+        
+    </div>
+    <div class=" col-md-8">
+        <!---->
+<script>
+
+    jQuery(function($){
+
+
+    // Create variables (in this scope) to hold the API and image size
+    var jcrop_api,
+        boundx,
+        boundy,
+
+
+        // Grab some information about the preview pane
+        $preview = $('#preview-pane'),
+        $pcnt = $('#preview-pane .preview-container'),
+        $pimg = $('#preview-pane .preview-container img'),
+
+
+        xsize = $pcnt.width(),
+        ysize = $pcnt.height();
+    
+    console.log('init',[xsize,ysize]);
+    $('#target').Jcrop({
+      onChange: updatePreview,
+      onSelect: updatePreview,
+      aspectRatio: xsize / ysize
+    },function(){
+      // Use the API to get the real image size
+      var bounds = this.getBounds();
+      boundx = bounds[0];
+      boundy = bounds[1];
+      // Store the API in the jcrop_api variable
+      jcrop_api = this;
+
+
+      // Move the preview into the jcrop container for css positioning
+      $preview.appendTo(jcrop_api.ui.holder);
+    });
+
+
+    function updatePreview(c)
+    {
+      if (parseInt(c.w) > 0)
+      {
+        var rx = xsize / c.w;
+        var ry = ysize / c.h;
+
+
+        $pimg.css({
+          width: Math.round(rx * boundx) + 'px',
+          height: Math.round(ry * boundy) + 'px',
+          marginLeft: '-' + Math.round(rx * c.x) + 'px',
+          marginTop: '-' + Math.round(ry * c.y) + 'px'
+        });
+        $('#x').val(c.x);  
+        $('#y').val(c.y);  
+        $('#w').val(c.w);  
+        $('#h').val(c.h);
+      }
+    };
+
+
+  });
+  $('.TK_eSave').click(function(){
+      var url="__URL__/photo_crop";
+      $('#pic').submit();
+//            $.post($('#pic').attr('action'),$('#pic').serialize(),function(data) {
+//                alert(data);
+//                //$('#pic').attr('send','on');
+//                if(!data.status) {alert(data.info); _loading_box.remove(); }
+//                else location.reload();
+//            },'json');
+        });
+}
+</script>
+<script src="__PUBLIC__/js/jquery.Jcrop.js"></script>
+
+ <div class="TK_eHeadCont">
+                <div class="TK_eHeadC" id="image"><img src="" id="target"  height=300 width=300 /></div>
+                <div id="preview-pane">
+    <div class="preview-container">
+      <img src="" class="jcrop-preview" alt="Preview" />
+    </div>
+  </div>
+            </div>
+        <form id="pic" action="{:U('User/photo_crop')}" method="post">  
+            <input type="hidden" id="x" name="x" />  
+            <input type="hidden" id="y" name="y" />  
+            <input type="hidden" id="w" name="w" />  
+            <input type="hidden" id="h" name="h" />  
+            <input type="hidden" id="ximg" name="ximg" />
+        </form>  
+        <form id="submit" action="{:U('User/up_photo')}" enctype="multipart/form-data"  target="upframe" method="post">
+                    <input type="file" name="TK_eFile" class="TK_eFile" id="TK_eFile" onchange="upload()">
+                    <input type="button" class="TK_eBtn" value="浏览图片" onclick="document.getElementById('TK_eFile').click()">
+</form>
+ 
+        <!---->
+    </div>
+    
+</div>
+</block>

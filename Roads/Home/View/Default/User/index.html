@@ -1,0 +1,105 @@
+<extend name="Public/base" />
+    <block name="right">
+        <div class="row">
+            <div class="col-md-11">
+                <div class="col-md-5">
+                    <!-- Widget: user widget style 1 --> 
+                    <div class="box box-widget widget-user-2">                  
+                            <div class="widget-user-header bg-yellow">
+                                <div class="widget-user-image">
+                                    <if condition="$info['userphoto'] neq ''">
+                                    <img class="img-circle" src="/Public{$info.userphoto}" alt="User Avatar">
+                                    <else /> 
+                                    <img class="img-circle" src="__PUBLIC__/member/dist/img/photo1.png" alt="User Avatar">
+                                    </if>
+                                </div>
+                                <!-- /.widget-user-image -->
+                                <h3 class="widget-user-username">{$info.nickname}</h3>
+                                <h5 class="widget-user-desc">{$info.usersign}</h5>
+                            </div>
+                            <div class="box-footer no-padding">
+                                <ul class="nav nav-stacked">
+                                    <li><a>账号： <span class="pull-right ">{$info.username}</span></a></li>
+                                    <li><a>昵称： <span class="pull-right ">{$info.nickname}</span></a></li>
+                                    <li><a>邮箱： <span class="pull-right  ">{$info.useremail} </span></a></li>
+                                    <li><a>手机： <span class="pull-right  ">{$info.userphone|default="这家伙很懒，什么也没留下"}</span></a></li>
+                                    <li><a>积分： <span class="pull-right  ">{$user.nickname|default="暂无积分系统"}</span></a></li>
+                                </ul>
+                            </div>                      
+                        </div>                    
+                  </div>
+                   <!-- Widget: user widget style 1  -->
+                    <div class="col-md-6">   
+                        <div class="box box-solid  box-info" style="">
+                            <div class="box-header">
+                                <h5 class="box-title"><i class="fa fa-bell-o"></i> 通知提醒</h5> 
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <ul class="box-ul">
+                                 <li><i class="fa fa-commenting-o"></i> <a>您的主题《测定》有新的回帖</a></li>
+                                 <li><i class="fa fa-commenting-o"></i> <a>您的主题《测定》有新的回帖</a></li>
+                                 <li><i class="fa fa-paper-plane-o"></i> <a>恭喜亲，您的会员组续费成功</a></li>
+                                 <li><i class="fa fa-paper-plane-o"></i> <a>该账户已被锁定</a></li>
+                                 </ul>
+                            </div>
+                            <!-- /.box-body -->
+                         </div>
+                            <div class="box box-solid  box-success" style="border: 1px solid #f4f4f4;">
+                            <div class="box-header with-border">
+                                <h5 class="box-title"><i class="fa fa-pencil-square-o"></i>   热门评论</h5>
+                                <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                </div><!-- /.box-tools -->
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                方法大师傅大
+                            </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        <!-- /.box -->
+                                                <div class="box box-solid  box-info" style="">
+                            <div class="box-header">
+                                <h5 class="box-title"><i class="fa fa-bell-o"></i> 通知提醒</h5> 
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <ul class="box-ul">
+                                 <li><i class="fa fa-commenting-o"></i> <a>您的主题《测定》有新的回帖</a></li>
+                                 <li><i class="fa fa-commenting-o"></i> <a>您的主题《测定》有新的回帖</a></li>
+                                 <li><i class="fa fa-paper-plane-o"></i> <a>恭喜亲，您的会员组续费成功</a></li>
+                                 <li><i class="fa fa-paper-plane-o"></i> <a>该账户已被锁定</a></li>
+                                 </ul>
+                            </div>
+                            <!-- /.box-body -->
+                         </div>
+                    </div>
+            </div>      
+            <div class="col-md-1">             
+            </div>       
+         </div>
+          <!--two-->
+         <div class="row">
+             <div class="col-md-11">
+                <div class="col-md-5">
+                <div class="box  box-success" style="border: 1px solid #f4f4f4;">
+                    <div class="box-header with-border">
+                        <h2 class="box-title"><i class="fa fa-building-o"></i> 登录记录</h2>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        上次登录时间:   {$info.entrdata|date="Y-m-d H:i:s",###}<br>
+                        IP:    {$info.entryip}<br>
+                        系统:  {$Think.  SERVER.HTTP_USER_AGENT}
+                          
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                </div>
+             </div>
+                <div class="col-md-6">
+                </div>
+             <div class="col-md-1">
+             </div> 
+         </div>
+    </block>

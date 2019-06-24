@@ -1,0 +1,204 @@
+<extend name="Public/base" />
+<block name="right">
+    <div class="main-container" id="main-container">
+        <script>
+            function check(){
+	var title = $('#title').val();
+	var name = $('#name').val();
+	if(title == ''){
+		layer.tips('请输入名称', '#title',{tips:1,time: 10000});
+		return false;
+	}
+	if(name == ''){
+		layer.tips('请输入（控制器/方法）', '#name',{tips:1,time: 10000});
+		return false;
+	}
+	if(name.indexOf('/') <=0 ){
+		layer.tips('格式必须为（控制器/方法）', '#name',{tips:[1, '#78BA32'],time: 10000});
+		return false;
+	}
+	return true;
+}
+        </script>
+
+
+        <div class="main-content">
+            <div class="main-content-inner">
+                <div class="page-content">
+                    <div class="row maintop">
+                        <form class="form-horizontal" name="myform" action="__SELF__" method="post" onsubmit="return check(this)">
+                            <div class="col-xs-12 col-sm-12">
+                                <small>状态：</small>
+                                <small>
+									<select name="status">
+										<option value="1">显示</option>
+										<option value="0">不显示</option>
+									</select>
+								</small>
+                                <small class="sl-left10">父级：</small>
+                                <small>
+
+                                <select name="pid">
+                                        <option value="0"> ---- 顶级 ---- </option>
+                                        <foreach name="data" item="vo">
+                                            <option value="{$vo.id}">{$vo.title}</option>
+                                        </foreach>
+                                 </select>
+                                    
+<!--<select name="pid">
+    <option value="0">--默认顶级--</option>
+    <foreach name="rule" item="v">
+        <option value="{$v.id}">{$v.lefthtml}{$v.title}</option>
+    </foreach>
+</select>-->
+								</small>
+                                <small class="sl-left10">名称：</small>
+                                <small><input name="title" id="title" class="rule"/></small>
+                                <small class="sl-left10">规则：</small>
+                                <small><input name="name" id="name" class="rule"/></small>
+                                <small class="sl-left10">css：</small>
+                                <small><input name="css" id="css"  /></small>
+                                <small class="sl-left10">排序：</small>
+                                <small><input name="sort" id="sort"   value="50"/></small>
+                                <small>
+								<button class="btn  btn-danger  ruleadd">
+										添加权限
+								</button>
+								</small>
+                            </div>
+                        </form>
+                        <div class="col-xs-12 col-sm-12 ">
+                            <p class="text-success">1、《控/方》：意思是 控制器/方法; 例如 Sys/sys_list</p>
+                            <p class="text-success">2、css为控制左侧导航顶级栏目前图标样式，具体可查看FontAwesome图标CSS样式</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-condensed" style="color:#555;">
+                                <thead>
+                                    <tr class="danger">
+                                        <td width="2%"> ID</td>
+                                        <td width="8%">名称</td>
+                                        <td width="8%">控制器/方法</td>
+                                        <td width="3%">菜单状态</td>
+                                        <td width="6%"> 创建时间</td>
+                                        <td width="2%" style="border-right:#CCC solid 1px;">排序</td>
+                                        <td width="15%" style="border-right:#CCC solid 1px;">操作</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <foreach name="data" item="vo">
+                                        <tr>
+                                            <td height="35">
+                                                {$vo.id}
+                                            </td>
+                                            <td>
+                                                {$vo.title}
+                                            </td>
+                                            <td>
+                                                {$vo.name}
+                                            </td>
+                                            <td>
+
+                                                <if condition=" $vo.status eq 1 ">显示
+                                                    <else/><span style="color:#F00">不显示</span></if>
+
+                                            </td>
+                                            <td>
+                                                {$vo.create_time|date="Y-m-d H:i:s",###}
+                                            </td>
+                                            <td>
+                                                <input name="{$vo.sort}" value=" {$vo.sort}" style="width:45px" />
+                                            </td>
+                                            <td>
+
+                                                <a class="btn btn-info btn-sm" href="{:U('auth_rule_edit',array('id'=>$vo['id']))}" title="修改">
+                                                    <i class=" fa fa-pencil bigger-130"> 编辑</i> </a>
+                                                <a class="btn btn-info btn-sm" href="javascript:;" onclick="return del({$vo.id});" title="删除">
+                                                    <i class=" fa fa-trash-o bigger-130"> 删除</i> </a>
+
+                                            </td>
+                                        </tr>
+                                        <foreach name="vo['sub']" item="sub">
+                                            <tr>
+                                                <td height="35">
+                                                    {$sub.id}
+                                                </td>
+                                                <td>
+                                                    <div style="padding-left:5px;">— — {$sub.title}</div>
+                                                </td>
+                                                <td>
+                                                    <div style="padding-left:5px;">{$sub.name}</div>
+                                                </td>
+                                                <td>
+
+                                                    <if condition=" $sub.status eq 1 ">显示
+                                                        <else/><span style="color:#C00">不显示</span></if>
+
+                                                </td>
+                                                <td>
+                                                    {$sub.create_time|date="Y-m-d H:i:s",###}
+                                                </td>
+                                                <td>
+                                                    <input name="{$vo.id}" value=" {$vo.sort}" style="width:45px" />
+                                                </td>
+                                                <td>
+
+                                                    <a class="btn btn-info btn-sm" href="{:U('auth_rule_edit',array('id'=>$vo['id']))}" title="修改">
+                                                        <i class="ace-icon fa fa-pencil bigger-130">编辑</i> </a>
+                                                    <a class="btn btn-info btn-sm" href="javascript:;" onclick="return del({$vo.id});" title="删除">
+                                                        <i class="ace-icon fa fa-trash-o bigger-130">删除</i> </a>
+
+                                                </td>
+                                            </tr>
+                                        </foreach>
+                                    </foreach>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+
+
+                    <script>
+                        function del(id){
+		layer.confirm('你确定要删除吗？', {icon: 3}, function(index){
+	    layer.close(index);
+	    window.location.href="__URL__/admin_rule_del/id/"+id+"";
+	});
+}
+
+function stateyes(val){
+		  $.post('{:U("admin_rule_state")}',
+		  {x:val},
+	function(data){
+		if(data.status){
+			if(data.info=='状态禁止'){
+				var a='<button class="btn btn-minier btn-danger">隐藏状态</button>'
+				$('#zt'+val).html(a);
+				layer.alert(data.info, {icon: 5});
+			}else{
+				var b='<button class="btn btn-minier btn-yellow">显示状态</button>'
+				$('#zt'+val).html(b);
+				layer.alert(data.info, {icon: 6});
+			}
+		}
+	});
+	return false;
+}
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分页 -->
+    <div class="page">
+        <div align="center">{$page} </div>
+    </div>
+    <script src="__PUBLIC__/Js/jquery.form.js"></script>
+</block>

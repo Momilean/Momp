@@ -1,0 +1,34 @@
+<extend name="Public/base" />
+<block name="right">
+    <div class="row">
+      123
+    </div>
+
+        <ul class="main-nav">
+            <volist name="__MENU__.main" id="menu">
+                <li class="{$menu.class|default=''}"><a href="{$menu.url|U}">{$menu.title}</a></li>
+            </volist>
+        </ul>
+
+
+                <notempty name="_extra_menu">
+
+                    {:extra_menu($_extra_menu,$__MENU__)} 11
+                </notempty>
+
+                <volist name="__MENU__.child" id="sub_menu">
+                    <!-- 子导航 -->
+                    <notempty name="sub_menu">
+                        <notempty name="key"><h3><i class="icon icon-unfold"></i>{$key}</h3></notempty>
+
+                            <volist name="sub_menu" id="menu">
+                                <li>
+                                    <a class="item" href="{$menu.url|U}">{$menu.title}</a>111
+                                </li>
+                            </volist>
+                        </ul>
+
+                    <!-- /子导航 -->
+                </volist>
+
+</block>

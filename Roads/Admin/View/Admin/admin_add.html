@@ -1,0 +1,126 @@
+<link rel="stylesheet" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="__PUBLIC__/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="__PUBLIC__/admin/dist/css/AdminLTE.min.css">
+<link rel="stylesheet" href="__PUBLIC__/admin/dist/css/skins/skin-red.min.css">
+<script src="__JS__/jquery.js"></script>
+<script src="__PUBLIC__/bootstrap/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script>
+$(function(){
+	$('#username').keyup(function(){
+		var username = $('#username').val();
+		if(username.length >= 5){
+			$.get("{:U('Admin/check_account')}",{"username":username},function(data){
+					if(data == 1){
+						$('#username_trips').html(' × 账号已存在');
+						$('#username_trips').css('color','red');
+						$('#username_hidden').val(1);
+					}else{
+						$('#username_trips').html(' √ 账号可用');
+						$('#username_trips').css('color','blue');
+						$('#username_hidden').val(0);
+					}
+				}, "json");
+		}
+	});
+});
+</script>
+<script>
+function admin_add(){
+		var username = $('#username').val();
+		var password = $('#password').val();
+		var password2 = $('#password2').val();
+		var group_id = $('#group_id').val();
+		var username_hidden = $('#username_hidden').val();
+        var password_hidden = $('#password_hidden').val();
+		if(group_id == ''){
+			layer.tips('请选择用户组', '#group_id');
+			return false;
+		}
+		if(username == ''){
+			layer.tips('请输入账号', '#username');
+			return false;
+		}
+		if(username.length < 4){
+			layer.tips('长度不应低于4位', '#username');
+			return false;
+		}
+		if(password == ''){
+			layer.tips('请输入密码', '#password');
+			return false;
+		}
+      if(password.length < 6){
+			layer.tips('长度不应低于6位', '#password');
+			return false;
+		}
+		if(password2 == ''){
+			layer.tips('请输入新密码', '#password2');
+			return false;
+		}
+		if(password != password2){
+			layer.msg('两次密码必须一样');
+			return false;
+		}
+		if(username_hidden == 1){
+			layer.msg('账号重复，请重新输入');
+			return false;
+		}
+        if(password_hidden == 1){
+			layer.msg('密码错误，请重新输入');
+			return false;
+		}
+		$.post(	"{:U('Admin/admin_add')}",{"username":username,"password":password,"group_id":group_id},function(data){
+				if(data == 1){
+					layer.msg('添加成功，正在跳转中...',{icon: 1,time: 2000,},function(){
+						parent.window.location.reload();    //刷新父页面
+					});
+				}else if(data == 0){
+					layer.msg('无法分配权限控制，请重新分配',{icon: 2,time: 2000},function(){
+						parent.window.location.reload();
+					});
+				}else{
+					layer.msg('添加失败，请重新输入',{icon: 2,time: 2000},function(){
+						window.location.reload();
+					});
+				}
+			}, "json");
+}
+</script>
+
+ <div class="row">
+	  <table  class="table" style="font-size:13px!important;">
+        <tbody>
+	      <tr>
+	        <td><div align="right">用户权限：</div></td>
+	        <td><select name="group_id" id="group_id" style="height:32px;">
+            		<option value="">----- 请选择用户组 -----</option>
+                  <foreach name="data" item="vo">
+            		<option value="{$vo.id}">{$vo.title}</option>
+                  </foreach>
+            	</select>
+            </td>
+          </tr>
+	      <tr>
+	      	<td width="25%"><div align="right">登录账号：</div></td>
+	      	<td width="75%"><input type="text" name="username" id="username"  value="" />
+            <input type="hidden" id="username_hidden" value="0" />
+            <span id="username_trips"> * 长度不低于5位</span>
+            </td>
+	      </tr>
+          <tr>
+	      	<td><div align="right">登录密码：</div></td>
+	      	<td><input type="password" name="password" id="password"   value="" />
+            <input type="hidden" id="password_hidden" value="0" />
+            <span id="password_trips"> * 长度不低于6位</span>
+            </td>
+	      </tr>
+          <tr>
+            <td><div align="right">重复密码：</div></td>
+            <td><input type="password" name="password2" id="password2"   value="" /></td>
+          </tr>
+        </tbody>
+  </table>
+ </div>
+<div style="text-align: center;">
+<button type="button" class="btn btn-info" id="button" style="min-width:160px;" onclick="admin_add();">确 认</button>
+    </div>

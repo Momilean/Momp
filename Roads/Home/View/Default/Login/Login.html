@@ -1,0 +1,130 @@
+<!--<form class="form-signin" method="POST" action="{:U('Login/login')}" accept-charset="UTF-8">
+    <div class="col-xs-8">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">用户名</span>
+            <label for="username" class="sr-only">user</label>
+            <input type="text" class="form-control" name="ajaxu" required oninvalid="setCustomValidity('用户名必填')" />
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">密&nbsp; &nbsp;码</span>
+            <label for="passwd" class="sr-only">Passwd</label>
+            <input name="ajaxp" class="form-control" required="" type="password">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">验证码</span>
+            <input type="text" class="form-control" data-validate="required:必填" placeholder="验证码" name="scode" />
+        </div>
+        <br>
+        <img src="{:U('Login/verify')}" alt="验证码" onClick="this.src=this.src+'?'+Math.random()" />
+
+    </div>
+    <div class="col-xs-4">
+        <div class="login-qrcode">
+            <div id="login_container">
+                <iframe scrolling="no" src="https://open.weixin.qq.com/connect/qrconnect?appid=wxfeec4534d2eaddaa&amp;scope=snsapi_login&amp;redirect_uri=http://account.shafa.com/oauth/callback?provider=weixin&amp;state=f2f45d4432d69da006539ea907c4bc74&amp;login_type=jssdk&amp;style=black&amp;href=https://assets.sfcdn.org/web/css/qrcode.css"
+                frameborder="0" height="100px" width="100px"></iframe>
+                <p><i class="fa fa-weixin"></i> 微信登录 </p>
+            </div>
+
+
+        </div>
+    </div>
+    <br>
+    <button id="bth" class="btn btn-lg  btn-block" type="submit" style="background-color:#FAA700;">登录</button>
+    <div class="checkbox">
+        <label>
+            <input value="remember-me" type="checkbox">永久记住我!
+        </label>
+        <a class="pull-right active" href="/p /reset">?忘记密码</a>
+    </div>
+</form>-->
+<script>
+$(function(){
+	$('#flogin').ajaxForm({
+		beforeSubmit: logcheckForm, // 此方法主要是提交前执行的方法，根据需要设置
+		success: logcomplete, // 这是提交后的方法
+        type: 'post',
+		dataType: 'json'
+	});
+	
+	function logcheckForm(){
+		$('#loginresult').attr("class", "high");
+ 
+		if( '' == $.trim($('#ajaxu').val())){
+			$('#loginresult').html('登入用户名不能为空').show();
+			$('#ajaxu').focus(); 
+			return false;
+		}
+ 
+		if( '' == $.trim($('#ajaxp').val())){
+			$('#loginresult').html('登入密码不能为空').show();
+			$('#ajaxp').focus(); 
+			return false;
+		}
+        if( ''== $.trim($('#scode').val())){
+            $('#loginresult').html('验证码不能为空').show();
+            $('#scode').focus();
+            return false;
+        }
+ }
+	function logcomplete(data){
+		if(data.status==1){
+			window.location.href="{:U('Index/index')}";
+			return false;
+		}else{
+			$('#loginresult').html(data.info).show();
+			return false;	
+		}
+	}
+ 
+});
+</script>
+<form class="form-signin" name="flogin" id="flogin" method="POST" action="{:U('Login/login')}">
+<p id="loginresult" class="loginnone"></p>
+    <div class="col-xs-8">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">用户名</span>
+            <label for="username" class="sr-only">user</label>
+            <input type="text" class="form-control" id="ajaxu" name="ajaxu" />
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">密&nbsp; &nbsp;码</span>
+            <label for="passwd" class="sr-only">Passwd</label>
+            <input name="ajaxp" id="ajaxp" class="form-control"   type="password">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">验证码</span>
+            <input type="text" class="form-control"  placeholder="验证码" id="scode" name="scode" />
+        </div>
+        <br>
+        <img src="{:U('Login/verify')}" alt="验证码" onClick="this.src=this.src+'?'+Math.random()" />
+
+    </div>
+    <div class="col-xs-4">
+        <div class="login-qrcode">
+            <div id="login_container">
+                <!--<iframe scrolling="no" src="https://open.weixin.qq.com/connect/qrconnect?appid=wxfeec4534d2eaddaa&amp;scope=snsapi_login&amp;redirect_uri=http://account.shafa.com/oauth/callback?provider=weixin&amp;state=f2f45d4432d69da006539ea907c4bc74&amp;login_type=jssdk&amp;style=black&amp;href=https://assets.sfcdn.org/web/css/qrcode.css"
+                frameborder="0" height="100px" width="100px"></iframe>
+                <p><i class="fa fa-weixin"></i> 微信登录 </p>-->
+            </div>
+
+
+        </div>
+    </div>
+    <br>
+    <button id="bth" class="btn btn-lg  btn-block" type="submit" style="background-color:#FAA700;">登录</button>
+    <div class="checkbox">
+        <label>
+            <input value="remember-me" type="checkbox">永久记住我!
+        </label>
+        <a class="pull-right active" href="/p /reset">?忘记密码</a>
+    </div>
+</form>
+
+
+
+

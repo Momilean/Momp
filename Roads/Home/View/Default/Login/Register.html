@@ -1,0 +1,97 @@
+  
+<div class="modal-content">
+    
+    <form id="register_from" action="{:U('Login/register')}" role="form" method="post">
+        <div class="alert alert-success" role="alert" id="msg"><p ></p></div>
+        <div style="padding-top: 10px" class="modal-body padding-40">
+            <div></div>
+            <div class="form-group input-group">
+                <input placeholder="电子邮箱" value="" id="signup-email" class="form-control" type="text">
+                <div class="input-group-addon"><i class="fa fa-envelope-o min-width-30"></i></div>
+            </div>
+            <div class="form-group input-group">
+                <input placeholder="用户名(4-20位字母、数字)" value="" name="name" class="form-control" type="text">
+                <div class="input-group-addon" id="namets"><p ></p></div>
+            </div>
+            <div class="form-group input-group">
+                <input placeholder="密码(6-16位字母、数字、无空格)"" name="pwd"  class="form-control" type="password">
+                <div class="input-group-addon" id="pwdts"><p ></p></div>
+            </div>
+            <div class="form-group input-group">
+                <input placeholder="确认登录密码"  name="pwds" class="form-control" type="password">
+                <div class="input-group-addon" id="pwdsts"><p ></p></div>
+            </div>
+            <div class="text-center">创建一个免费帐号，意味着你接受<a href="#" class="a-blue"> Maix stiudo 用户协议</a>。</div>
+        </div>
+        <div class="modal-footer">
+            <button id="btn" type="button" class="btn btn-primary">创建新账号</button>
+            <button id="btn-signup-close" type="button" data-dismiss="modal" class="btn btn-danger">关闭</button>
+        </div>
+    </form>
+</div>
+<!--<script>
+    $(function(){
+        $('#btn').click(function(data){
+             var action = $('#register_from').attr('action');
+             var postform = $('#register_from').serialize();
+             var msg = $("#msg"),$("#msg"),$("#msg");
+             var request = $.ajax({
+                  url: action,
+                  method: "POST",
+                  data: postform,
+                  dataType: "json",
+                  complete:function(){location.href ="default.aspx"}//跳转页面         
+            });
+             request.done(function (data) {
+                 $("#msg").html("");
+             });
+
+
+
+             request.fail(function (data) {
+$('#namets').html(data['username']);
+                 alert("Request failed: " + textStatus);
+
+             });
+
+
+            
+        });     
+    });
+    
+</script>-->
+  <script>
+    $(function(){        
+     $('#btn').click(function(){
+         var action = $('#register_from').attr('action');
+         var postform = $('#register_from').serialize();
+         
+         $.post(action, postform, function(data){
+             // 提示
+             $('#namets').html('');
+             $('#pwdts').html('');
+             $('#pwdsts').html('');
+             $('#msg').html(data['info']) 
+        if(!!data){ //验证
+                $('#namets').html(data['username']);
+                $('#pwdts').html(data['password']);
+                $('#pwdsts').html(data['passwords']);
+        }if(data['status']==1){ //执行跳转
+                //document.location.href= '{:U('User/uscenter')}';
+                window.setTimeout(function(){
+                location.href= data['url']  }, 3000);
+            }  
+        else{          
+              return 'flase';
+        }
+     },'json');
+     });
+     });
+
+</script> 
+ 
+
+         
+
+
+ 

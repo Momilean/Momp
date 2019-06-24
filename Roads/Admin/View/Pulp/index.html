@@ -1,0 +1,60 @@
+<extend name="Public/base" />
+<block name="right">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title globa"  >Account信息</h3></div>
+                <div class="panel-body">
+
+                    <div class="form-group globt ">
+                        <label class="control-label x80">所属角色：</label>
+                        <span>超级管理员</span>
+                    </div>
+                    <div class="form-group globt ">
+                        <label class="control-label x80">登陆账号：</label>
+                        <span>{$Think.session.sname}</span>
+
+                    </div>
+                    <div class="form-group globt ">
+                        <label class="control-label x80">上次登陆：</label>
+                        <span>{$Think.session.logintime|date="Y-m-d H:i:s",###}</span>
+                    </div>
+                     <div class="form-group globt ">
+                        <label class="control-label x80">上次IP：</label>
+                        <span>{$Think.session.logintime|date="Y-m-d H:i:s",###}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="panel panel-default">
+                <div class="panel-heading globa">
+                    <h3 class="panel-title">System信息</h3></div>
+                <div class="panel-body">
+                    <div class="form-group globt">
+                        <label class="control-label x80">服务器：</label>
+                        <span>{$Think.SERVER.SERVER_SOFTWARE}</span>
+                    </div>
+                    <div class="form-group globt">
+                        <label class="control-label x80">联系：</label>
+                        <span>{$Think.server.SERVER_ADMIN}</span>
+                    </div>
+                    <div class="form-group globt">
+                        <label class="control-label x80">IP：</label>
+                        <span>{$Think.SERVER.SERVER_ADDR}</span>
+                    </div>
+                    <div class="form-group globt">
+                        <label class="control-label x80">Mysql版本：</label>
+                        <php>
+                            $system_info_mysql = M()->query("select version() as v;");
+                        </php>
+                        {$system_info_mysql.0.v}
+                        {$Think.server.HTTP_USER_AGENT}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</block>

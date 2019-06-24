@@ -1,0 +1,35 @@
+<extend name="Public:Base" />
+<block name="A_left">
+<ul class="nav nav-pills nav-stacked">
+  <li role="presentation" class="active"><a href="#">会员列表</a></li>
+  <li role="presentation"><a href="#">Profile</a></li>
+  <li role="presentation"><a href="#">Messages</a></li>
+</ul>
+</block>
+<block name="A_right">
+<div class="table-responsive">
+
+<table class="table table-hover">
+    <tr>
+      <td class="active">ID</td>
+      <td class="success">用户名</td>
+      <td class="warning">邮件</td>
+      <td class="info">登录时间</td>
+      <td class="info">创建时间</td> 
+	<td class="danger">编辑操作</td>
+      </tr>
+    <foreach name="user_list.lists" item="ul">
+      <tr class="active">
+          <td>{$ul.id}</td>
+          <td>{$ul.username}</td>
+          <td>{$ul.email}</td>
+          <td>{$ul.regidata}</td>
+          <td>{$ul.entrdata}</td>
+          <td><a href="{:U('User/edit',array('id'=>$ul['id']))}">编辑</a>/
+              <a href="{:U('User/delete',array('id'=>$ul['id']))}">删除</a></td>
+      </tr>
+    </foreach>
+            <th>{$user_list.page}</th>
+  </table> ffjd jfkdasjkjfdkajfkdjk jlfdas fda fda
+</div>
+</block>

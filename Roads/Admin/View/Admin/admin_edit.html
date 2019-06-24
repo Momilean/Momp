@@ -1,0 +1,87 @@
+<extend name="Public/base" />
+<block name="right">
+<script>
+function check(){
+	var group_id = $('#group_id').val();
+	if(group_id == ''){
+		layer.tips('请选择所属用户组', '#group_id');
+		return false;
+	}
+	return true;
+}
+</script>
+
+<form class="form-horizontal" name="myform" action="__SELF__" method="post" onsubmit="return check();">
+<div class="form-group">
+	  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table">
+        <tbody>
+	      <tr>
+	      	<td width="17%"><label class="label">
+	      	  <div align="right">账号：</div>
+	      	</label></td>
+	      	<td width="83%">{$vo.account}</td>
+	      </tr>
+          <tr>
+            <td><div align="right">用户组：</div></td>
+            <td><select name="group_id" id="group_id" class="select">
+            <option value="{$vo.group_id}">{$vo.title}</option>
+            <if condition="$Think.session.sid eq 10 ">
+            <option value="">---- 请选择所属组 ----</option>
+            <foreach name="group" item="vo2">
+            <option value="{$vo2.id}">{$vo2.title}</option>
+            </foreach>
+            </if>
+            </select></td>
+          </tr>
+          <tr>
+            <td><div align="right">Email：</div></td>
+            <td><input type="text" name="email" id="email" size="40" value="{$vo.useremail}" /></td>
+          </tr>
+          <tr>
+            <td><div align="right">手机号：</div></td>
+            <td><input type="text" name="mobile" id="mobile" size="40" value="{$vo.mobile}" /></td>
+          </tr>
+                    <tr>
+            <td><div align="right">用户名称：</div></td>
+            <td>{$vo.nickname}</td>
+          </tr>
+          <tr>
+            <td><div align="right">最近登录IP：</div></td>
+            <td>{$vo.entryip}</td>
+          </tr>
+          <tr>
+            <td><div align="right">最近登录时间：</div></td>
+            <td>{$vo.entrdata|date='Y-m-d H:i:s',###}</td>
+          </tr>
+          <tr>
+            <td><div align="right">登录次数：</div></td>
+            <td>{$vo.login_count}</td>
+          </tr>
+          <tr>
+            <td><div align="right">创建时间：</div></td>
+            <td>{$vo.regidata}</td>
+          </tr>  
+   <tr>
+            <td><div align="right">账号状态：</div></td>
+            <td>
+             
+<input name="status" type="radio" id="qiyong" value="1" style="position:relative;top:8px;"  <if condition="$vo.status eq 1"> checked </if> />
+            <label for="qiyong">启用</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input name="status" type="radio" id="jinyong" value="0" style="position:relative;top:8px;"  <if condition="$vo.status eq 0"> checked </if> />
+            <label for="jinyong">禁用</label>
+            
+          
+            </td>
+          </tr>
+          
+        </tbody>
+  </table>
+</div>
+<div class="form-group">
+	 <div class="col-sm-offset-2 col-sm-10">
+    	<input type="hidden" name="id" value="{$vo.id}" />
+        <button type="submit" class="btn btn-success" style="width:180px;">保 存</button>
+	 </div>
+</div>
+</form>
+</block>

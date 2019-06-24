@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link href="__CSS__/style.css" rel="stylesheet">
+        <link href="__PUBLIC__/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <script src="__JS__/jquery.js"></script>
+        <script src="__JS__/respond.min.js"></script>
+        <script src="__PUBLIC__/bootstrap/js/bootstrap.js"></script> 
+        <script src="__JS__/jquery.form.js"></script> 
+    </head>
+    <body>
+<!--
+ 
+                    
+                    <span class="h_login">
+                        <a href="{:U('Home/Login/index')}" >登录</a>
+                    </span>
+                       
+                    <span class="h_regis">
+                        <a href="{:U('/Home/Login/Register')}">注册</a>
+                    </span>
+  
+-->
+<!--    bootstarp head    -->
+ <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+     <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+              Maxi Sutido
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse  collapse " role="navigation">
+          <ul class="nav navbar-nav ">
+            <li class="active"><a href="#">主页</a></li>
+            <li><a href="#about">贴吧</a></li>
+            <li><a href="#contact"></a></li>
+            <li><a href="#contact"></a></li>
+          </ul>
+          <!-- user -->
+            <ul class="nav navbar-nav navbar-right ">
+              <if condition="$Think.session.sid neq ''">              
+                <li class="nnavli">
+                    <!--hello js-->{$Think.session.sname}
+                <script language="javaScript">
+                                now = new Date();
+                                hour = now.getHours();
+                                if(hour < 6){document.write("凌晨好！")} 
+                                else if (hour < 9){document.write("早上好！")} 
+                                else if (hour < 12){document.write("上午好！")} 
+                                else if (hour < 14){document.write("中午好！")} 
+                                else if (hour < 17){document.write("下午好！")} 
+                                else if (hour < 19){document.write("傍晚好！")} 
+                                else if (hour < 22){document.write("晚上好！")} 
+                                else {document.write("夜里好！")}
+                </script>
+                </li>
+                 <if condition="$Think.session.logo neq ''">
+                <li  >                 
+                <div class="dropdown">
+                    <img src="/Public{$Think.session.logo}" style="width:48px; height:48px;" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="true" class="img-circle" alt="Responsive image">
+                    <span class="caret"></span>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="{:U('User/index')}">个人中心</a></li>
+                        <li><a href="#">帮助中心</a></li>
+                        <li role="separator" class="divider divider-warning"></li>
+                        <li><a href="{:U('Login/logout')}">注销账号</a> </li>
+                    </ul>
+                </div>
+                </li>
+                <else />
+                <li class="nnavli">
+                    <div class="dropdown">
+                        <img src="/Public/Uploads/userlogo/null.jpg" style="width:48px; height:48px;" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="true" class="img-circle" alt="Responsive image">
+                        <span class="caret"></span>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{:U('User/index')}">个人中心</a></li>
+                            <li><a href="#">帮助中心</a></li>
+                            <li role="separator" class="divider divider-warning"></li>
+                            <li><a href="{:U('Login/logout')}">注销账号</a> </li>
+                        </ul>
+                    </div>
+                </li>
+                 </if>
+      
+                <else />
+                <li  >
+                  <button type="button" class="btn btn-danger navbar-btn" data-toggle="modal" data-target="#ligModal">
+                    登录
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="btn btn-warning navbar-btn" data-toggle="modal" data-target="#signModal">
+                    注册
+                  </button>
+                </li>
+              </if>
+            
+            </ul>
+          
+        </div><!--/.nav-collapse -->
+      </div>
+</nav>
+
+ <!-- login Modal -->
+
+        
+<div class="modal fade bs-example-modal" id="ligModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog " role="document">
+
+    <div class="modal-content zxmc">
+ 
+      
+          <include file="Login/Login" /> 
+       
+    <div class="zx-modal-footer">
+        <button id="btn-signup-close" type="button" data-dismiss="modal" class="btn btn-danger">关闭</button>
+    </div>
+    </div>
+  </div>
+</div> 
+ <!-- signin Modal -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //alert(1111);
+        });
+    </script>
+<div class="modal fade  bs-example-modal-sm" id="signModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <include file="Login/Register" />   
+  </div>
+</div>
+        
+<!-- side -->
+<script>
+    $(function(){
+       $('#myCarousel').carousel({
+  interval: 4000
+});
+      
+    });
+</script> 
+<div id="myCarousel" class="carousel slide">
+   <!-- 轮播（Carousel）指标 -->
+   <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+   </ol>  
+   <!-- 轮播（Carousel）项目 -->
+   <div class="carousel-inner">
+      <div class="item active">
+         <img src="/Public/Adds/gero.jpg" alt="First slide">
+         <div class="carousel-caption"></div>
+      </div>
+      <div class="item">
+         <img src="/Public/Adds/one.jpg" alt="Second slide">
+         <div class="carousel-caption"></div>
+      </div>
+      <div class="item">
+         <img src="/Public/Adds/two.jpg" alt="Third slide">
+         <div class="carousel-caption"></div>
+      </div>
+   </div>
+   <!-- 轮播（Carousel）导航 -->
+  <!-- Controls -->
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div> 

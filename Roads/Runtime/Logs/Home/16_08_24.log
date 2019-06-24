@@ -1,0 +1,49 @@
+[ 2016-08-24T11:54:25+08:00 ] 127.0.0.1 /Login/register.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001095s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001987s ]
+NOTIC: [8] Use of undefined constant IS_Ajax - assumed 'IS_Ajax' C:\wamp\www\Roads\Home\Controller\LoginController.class.php 第 80 行.
+SQL: SHOW COLUMNS FROM `bs_user` [ RunTime:0.4583s ]
+
+[ 2016-08-24T11:54:25+08:00 ] 127.0.0.1 /Login/register.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001196s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002108s ]
+NOTIC: [8] Use of undefined constant IS_Ajax - assumed 'IS_Ajax' C:\wamp\www\Roads\Home\Controller\LoginController.class.php 第 80 行.
+SQL: SHOW COLUMNS FROM `bs_user` [ RunTime:0.0065s ]
+
+[ 2016-08-24T11:54:25+08:00 ] 127.0.0.1 /Login/register.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000964s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.046108s ]
+NOTIC: [8] Use of undefined constant IS_Ajax - assumed 'IS_Ajax' C:\wamp\www\Roads\Home\Controller\LoginController.class.php 第 80 行.
+SQL: SHOW COLUMNS FROM `bs_user` [ RunTime:0.0277s ]
+
+[ 2016-08-24T11:54:25+08:00 ] 127.0.0.1 /Login/register.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001006s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001928s ]
+NOTIC: [8] Use of undefined constant IS_Ajax - assumed 'IS_Ajax' C:\wamp\www\Roads\Home\Controller\LoginController.class.php 第 80 行.
+SQL: SHOW COLUMNS FROM `bs_user` [ RunTime:0.0065s ]
+
+[ 2016-08-24T11:54:26+08:00 ] 127.0.0.1 /Login/register.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001050s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001995s ]
+NOTIC: [8] Use of undefined constant IS_Ajax - assumed 'IS_Ajax' C:\wamp\www\Roads\Home\Controller\LoginController.class.php 第 80 行.
+SQL: SHOW COLUMNS FROM `bs_user` [ RunTime:0.0101s ]
+
+[ 2016-08-24T11:54:26+08:00 ] 127.0.0.1 /Login/register.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001045s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001992s ]
+NOTIC: [8] Use of undefined constant IS_Ajax - assumed 'IS_Ajax' C:\wamp\www\Roads\Home\Controller\LoginController.class.php 第 80 行.
+SQL: SHOW COLUMNS FROM `bs_user` [ RunTime:0.0797s ]
+
+[ 2016-08-24T11:54:26+08:00 ] 127.0.0.1 /Login/register.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001042s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001991s ]
+NOTIC: [8] Use of undefined constant IS_Ajax - assumed 'IS_Ajax' C:\wamp\www\Roads\Home\Controller\LoginController.class.php 第 80 行.
+SQL: SHOW COLUMNS FROM `bs_user` [ RunTime:0.0078s ]
+
